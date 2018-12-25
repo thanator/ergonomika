@@ -12,7 +12,6 @@ import tands.nirergonomika.processing.MusicFile
 
 class NirApplication : MultiDexApplication() {
 
-    val MusicFile: MusicFile = tands.nirergonomika.processing.MusicFile
 
     override fun onCreate() {
         super.onCreate()

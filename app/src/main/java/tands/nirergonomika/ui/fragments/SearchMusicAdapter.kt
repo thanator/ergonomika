@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.musicg.wave.Wave
+import com.musicg.wave.WaveHeader
 import tands.nirergonomika.R
+import tands.nirergonomika.processing.MusicFile
+import java.io.File
 
-class SearchMusicAdapter(val items: List<String>, private val runTopCallback: (Wave) -> Unit) : RecyclerView.Adapter<SearchMusicAdapter.SearchViewHolder>() {
+class SearchMusicAdapter(val items: List<MusicFile>, private val runTopCallback: (Wave) -> Unit) : RecyclerView.Adapter<SearchMusicAdapter.SearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) =
             SearchViewHolder(parent.inflate(R.layout.one_music_file), runTopCallback)
@@ -25,11 +28,12 @@ class SearchMusicAdapter(val items: List<String>, private val runTopCallback: (W
 
         val textView: TextView = view.findViewById(R.id.one_music_file_text_view)
 
-        fun bind(text: String) {
-            textView.text = text
+        fun bind(musicFile: MusicFile) {
+            textView.text = musicFile.name
             textView.isClickable = true
             textView.setOnClickListener {
-                runTopCallback.invoke()
+
+                runTopCallback.invoke(Wave(WaveHeader(), File(musicFile.fullPath).readBytes()))
             }
         }
 

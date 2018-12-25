@@ -8,11 +8,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import tands.nirergonomika.R
+import tands.nirergonomika.processing.MusicFile
 
 
 class SearchMusicFragment : Fragment() {
@@ -22,7 +22,7 @@ class SearchMusicFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.music_searcher, container, false);
+        val view = inflater.inflate(R.layout.music_searcher_fragment, container, false);
 
         if (ContextCompat.checkSelfPermission(activity!!.applicationContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED &&
@@ -34,7 +34,8 @@ class SearchMusicFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity!!.applicationContext)
                 adapter = SearchMusicAdapter(findAllMusic()) { wave ->
                     run {
-                        wave.
+                        wave.spectrogram.normalizedSpectrogramData
+                        activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_layout, ProcessingFragment.newInstance(), "processing_fragment").commit()
                     }
                 }
             }
@@ -50,11 +51,10 @@ class SearchMusicFragment : Fragment() {
             }
         }
 
-
         return view
     }
 
-    private fun findAllMusic(): List<String> {
+    private fun findAllMusic(): List<MusicFile> {
         val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0"
 
         val projection = arrayOf(
@@ -69,15 +69,14 @@ class SearchMusicFragment : Fragment() {
             null, null
         )
 
-        val listOfNames = ArrayList<String>();
+        val listOfNames = ArrayList<MusicFile>();
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 val filepath = java.io.File(cursor.getString(1))
-                listOfNames.add(filepath.name)
+                listOfNames.add(MusicFile(filepath.name, filepath.absolutePath))
             }
             cursor.close()
         }
-        Log.i("SearchMusicFragment", listOfNames.toString())
         return listOfNames
     }
 

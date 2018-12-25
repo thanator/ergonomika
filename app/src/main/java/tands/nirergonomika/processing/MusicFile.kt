@@ -6,9 +6,8 @@ import java.io.Serializable
  * возможно кандидат на хранилище мелодии
  */
 
-object MusicFile : Serializable {
+data class MusicFile(var name:String,  var fullPath : String ) : Serializable {
 
-    var name : String = ""
 
 
 }

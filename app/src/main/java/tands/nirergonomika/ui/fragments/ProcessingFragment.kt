@@ -13,7 +13,7 @@ class ProcessingFragment : Fragment() {
         fun newInstance() = ProcessingFragment()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.processing, container, false)
+        return inflater.inflate(R.layout.processing_fragment, container, false)
     }
 
 }
