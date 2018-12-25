@@ -1,4 +1,4 @@
-package tands.nirergonomika.ui.fragments
+package tands.nirergonomika.ui.adapters
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.musicg.wave.Wave
 import com.musicg.wave.WaveHeader
 import tands.nirergonomika.R
 import tands.nirergonomika.processing.MusicFile
 import java.io.File
 
-class SearchMusicAdapter(val items: List<MusicFile>, private val runTopCallback: (Wave) -> Unit) : RecyclerView.Adapter<SearchMusicAdapter.SearchViewHolder>() {
+class SearchMusicAdapter(val items: List<MusicFile>, private val runTopCallback: (Wave, MusicFile) -> Unit) : RecyclerView.Adapter<SearchMusicAdapter.SearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) =
             SearchViewHolder(parent.inflate(R.layout.one_music_file), runTopCallback)
@@ -24,7 +23,7 @@ class SearchMusicAdapter(val items: List<MusicFile>, private val runTopCallback:
         viewHolder.bind(items[position])
     }
 
-    class SearchViewHolder(view: View, private val runTopCallback: (Wave) -> Unit) : RecyclerView.ViewHolder(view) {
+    class SearchViewHolder(view: View, private val runTopCallback: (Wave, MusicFile) -> Unit) : RecyclerView.ViewHolder(view) {
 
         val textView: TextView = view.findViewById(R.id.one_music_file_text_view)
 
@@ -33,7 +32,7 @@ class SearchMusicAdapter(val items: List<MusicFile>, private val runTopCallback:
             textView.isClickable = true
             textView.setOnClickListener {
 
-                runTopCallback.invoke(Wave(WaveHeader(), File(musicFile.fullPath).readBytes()))
+                runTopCallback.invoke(Wave(WaveHeader(), File(musicFile.fullPath).readBytes()), musicFile)
             }
         }
 

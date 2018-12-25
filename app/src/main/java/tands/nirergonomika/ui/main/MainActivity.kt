@@ -24,7 +24,7 @@ class MainActivity : FragmentActivity() {
                     .beginTransaction()
                     .add(R.id.main_layout, StartFragment.newInstance(), "rageComicList")
                     .commit()
-                step = Step.Second
+                step = Step.NotFirst
             }
         }
 

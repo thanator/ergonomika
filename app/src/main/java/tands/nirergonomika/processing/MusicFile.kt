@@ -3,11 +3,10 @@ package tands.nirergonomika.processing
 import java.io.Serializable
 
 /**
- * возможно кандидат на хранилище мелодии
+ * хранит основные параметры музыки
+ *
+ * @param name имя
+ * @param fullPath путь до
  */
 
-data class MusicFile(var name:String,  var fullPath : String ) : Serializable {
-
-
-
-}
+data class MusicFile(var name: String, var fullPath: String) : Serializable

@@ -6,43 +6,48 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/stub_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="100dp"
         android:text="@string/selected_track"
         android:textSize="@dimen/big_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/music_text_view"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/music_text_view"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="166dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        android:layout_marginTop="106dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stub_textView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Будильник 1" />
+        tools:text="Будильник 1"
+        android:layout_marginEnd="60dp"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/start_button"
         android:layout_width="186dp"
         android:layout_height="78dp"
         android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/margin_default"
         android:text="@string/start_analysis"
+        app:layout_constraintBottom_toTopOf="@+id/reselect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/stub_textView" />
 
     <Button
+        android:id="@+id/reselect_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginBottom="@dimen/margin_default"
         android:text="@string/reselect_music"
@@ -50,6 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.163" />
+        app:layout_constraintTop_toBottomOf="@id/start_button" />
+
 </android.support.constraint.ConstraintLayout>
