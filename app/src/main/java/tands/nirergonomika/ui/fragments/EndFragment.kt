@@ -14,7 +14,7 @@ import tands.nirergonomika.ui.SpectrogramView
 class EndFragment : Fragment() {
 
     val KEY = "key"
-    val FLOAT_KEY = "key"
+    val FLOAT_KEY = "float key"
     lateinit var wave: Wave
     var raiting: Float = 0f
 
