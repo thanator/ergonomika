@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NirErgonomika</string>
+    <string name="select_music">SELECT MUSIC</string>
+    <string name="effectivnost">Effectivnost:</string>
+    <string name="reselect_music">RESELECT MUSIC</string>
+    <string name="from_1">from 1</string>
+    <string name="selected_track">Selected track:</string>
+    <string name="start_analysis">Start analysis</string>
+</resources>
