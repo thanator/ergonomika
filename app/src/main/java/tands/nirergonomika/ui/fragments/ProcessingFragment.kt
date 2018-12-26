@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.musicg.wave.Wave
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import tands.nirergonomika.R
 import tands.nirergonomika.processing.MusicFile
 import tands.nirergonomika.processing.Process
@@ -38,6 +40,11 @@ class ProcessingFragment : Fragment() {
         wave = arguments!!.getSerializable(KEY_WAVE) as Wave
         musicFile = arguments!!.getSerializable(KEY_MUSIC) as MusicFile
 
+        val job = GlobalScope.launch { // launch new coroutine and keep a reference to its Job
+            process.process(wave)
+        }
+        // todo корутинка?
+
         view.findViewById<TextView>(R.id.music_text_view).apply {
             text = musicFile.name
         }
@@ -54,6 +61,8 @@ class ProcessingFragment : Fragment() {
                     .commit()
             }
         }
+
+
 
         view.findViewById<Button>(R.id.start_button).setOnClickListener {
 
