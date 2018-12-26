@@ -11,6 +11,8 @@ import android.widget.TextView
 import com.musicg.wave.Wave
 import tands.nirergonomika.R
 import tands.nirergonomika.processing.MusicFile
+import tands.nirergonomika.processing.Process
+import tands.nirergonomika.processing.ProcessImpl
 
 class ProcessingFragment : Fragment() {
 
@@ -19,6 +21,7 @@ class ProcessingFragment : Fragment() {
 
     lateinit var wave: Wave
     lateinit var musicFile: MusicFile
+    lateinit var process: Process
 
     companion object {
         fun newInstance(wave: Wave, musicFile: MusicFile) = ProcessingFragment().apply {
@@ -31,7 +34,7 @@ class ProcessingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.processing_fragment, container, false)
-
+        process = ProcessImpl(activity!!.applicationContext)
         wave = arguments!!.getSerializable(KEY_WAVE) as Wave
         musicFile = arguments!!.getSerializable(KEY_MUSIC) as MusicFile
 
@@ -42,23 +45,28 @@ class ProcessingFragment : Fragment() {
         view.findViewById<Button>(R.id.reselect_button).setOnClickListener {
             activity?.let { activity ->
                 activity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_layout,
-                                SearchMusicFragment.newInstance(), "search_fragment")
-                        .addToBackStack(null)
-                        .commit()
+                    .beginTransaction()
+                    .replace(
+                        R.id.main_layout,
+                        SearchMusicFragment.newInstance(), "search_fragment"
+                    )
+                    .addToBackStack(null)
+                    .commit()
             }
         }
 
         view.findViewById<Button>(R.id.start_button).setOnClickListener {
+
             activity?.let { activity ->
                 val fragmentManager = activity.supportFragmentManager
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_layout,
-                                EndFragment.newInstance(10f, wave), "search_fragment")
-                        .commit()
+                    .beginTransaction()
+                    .replace(
+                        R.id.main_layout,
+                        EndFragment.newInstance(process.process(wave), wave), "search_fragment"
+                    )
+                    .commit()
             }
         }
 

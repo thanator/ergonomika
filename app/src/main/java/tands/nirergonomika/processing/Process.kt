@@ -6,5 +6,5 @@ import com.musicg.wave.Wave
  * собсно тут происходит обработка
  */
 interface Process {
-    fun process(wave: Wave)
+    fun process(wave: Wave) : Float
 }

@@ -36,7 +36,6 @@ class SearchMusicFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity!!.applicationContext)
                 adapter = SearchMusicAdapter(findAllMusic()) { wave, musicFile ->
                     run {
-                        wave.spectrogram.normalizedSpectrogramData
                         val fragmentManager = activity!!.supportFragmentManager
                         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                         fragmentManager.beginTransaction()
